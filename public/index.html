@@ -32,18 +32,76 @@
       <button id="multinav">Flip multiple coins</button>
       <button id="guessnav">Guess the result</button>
     </nav>
-    <div id="home">
-      
+
+    <div id="home" class="active">
+      <p class="home">Click a button to flip the coins.</p>
     </div>    
-    <div id="single" class="hidden">
-      
+
+
+    <div id="one" class="hidden">
+      <button id="flip-one" onclick="flipCoin()">Flip the coin!</button>
+      <p>Your Coin Flip Result: <span id="one-result"></span></p>
+      <img src="assets/img/coin.png" id="one-pic" class="one-coin">
     </div>
-    <div id="multi" class="hidden">
-      
+
+
+    <div id="many" class="hidden">
+      <form method="post" onsubmit="flipCoins()">
+        <label for="number-of-flips">Insert a Number:</label>
+        <input type="number" id="number-of-flips">
+        <br>
+        <input type="submit">
+      </form>
+
+      <div id="table-results" class="hidden">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Heads/Tails</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Heads</td>
+              <td><span id="heads_total"></span></td>
+            </tr>
+            <tr>
+              <td>Tails</td>
+              <td><span id="tails_total"></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Flip</th>
+              <th scope="col">Heads/Tails</th>
+            </tr>
+          </thead>
+          <tbody id="results"></tbody>
+        </table>
+      </div>
     </div>
+
+
     <div id="guess" class="hidden">
-      
+      <button id="flip-guess-heads" onclick="guessFlip(heads)">Guess heads!</button>
+      <button id="flip-guess-tails" onclick="guessFlip(tails)">Guess tails!</button>
+
+      <h2>What you picked:</h2>
+      <p><span id="persons-call"></span></p>
+      <img src="assets/img/coin.png" id="persons-call-pic" class="guess-coin">
+
+      <h2>What the flip was:</h2>
+      <p><span id="actual-flip"></span></p>
+      <img src="assets/img/coin.png" id="actual-flip-pic" class="guess-coin">
+
+      <h2>Win or Lose?</h2>
+      <p><span id="win-or-lose"></span></p>
     </div>
+
 	<script src="main.js"></script>
   </body>
 </html>
