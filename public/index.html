@@ -46,19 +46,19 @@
 
 
     <div id="many" class="hidden">
-      <form method="post" onsubmit="flipCoins()">
-        <label for="number-of-flips">Insert a Number:</label>
-        <input type="number" id="number-of-flips">
+      <form action="javascript:void(0);" method="post" onsubmit="flipCoins()">
+        <label for="number-of-flips">How many coins are we flipping?</label>
+        <input type="number" name="number-of-flips" id="number-of-flips">
         <br>
-        <input type="submit">
+        <input type="submit" value="Flip Some Coins">
       </form>
 
-      <div id="table-results" class="hidden">
+      <div id="table" class="hidden">
         <table>
           <thead>
             <tr>
               <th scope="col">Heads/Tails</th>
-              <th scope="col">Result</th>
+              <th scope="col">Number of Each</th>
             </tr>
           </thead>
 
@@ -73,32 +73,34 @@
             </tr>
           </tbody>
         </table>
+
         <table>
           <thead>
             <tr>
-              <th scope="col">Flip</th>
-              <th scope="col">Heads/Tails</th>
+              <th scope="col">Flip Result</th>
+              <th scope="col">Image Result</th>
             </tr>
           </thead>
-          <tbody id="results"></tbody>
+          <tbody id="raw_data"></tbody>
         </table>
       </div>
+
     </div>
 
 
     <div id="guess" class="hidden">
-      <button id="flip-guess-heads" onclick="guessFlip(heads)">Guess heads!</button>
-      <button id="flip-guess-tails" onclick="guessFlip(tails)">Guess tails!</button>
+      <button id="flip-guess-heads" onclick="guessFlip('heads')">Guess heads!</button>
+      <button id="flip-guess-tails" onclick="guessFlip('tails')">Guess tails!</button>
 
-      <h2>What you picked:</h2>
+      <h2>What you picked (hope you were right!):</h2>
       <p><span id="persons-call"></span></p>
-      <img src="assets/img/coin.png" id="persons-call-pic" class="guess-coin">
+      <img src="assets/img/coin.png" id="persons-call-pic">
 
       <h2>What the flip was:</h2>
       <p><span id="actual-flip"></span></p>
-      <img src="assets/img/coin.png" id="actual-flip-pic" class="guess-coin">
+      <img src="assets/img/coin.png" id="actual-flip-pic">
 
-      <h2>Win or Lose?</h2>
+      <h2>Did You Win or Lose?</h2>
       <p><span id="win-or-lose"></span></p>
     </div>
 

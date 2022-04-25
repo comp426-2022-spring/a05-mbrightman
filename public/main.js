@@ -1,4 +1,5 @@
 // Focus div based on nav button click
+
 // home button click
 document.getElementById('homenav').onclick = function() {
     document.getElementById('homenav').className = 'active'
@@ -59,8 +60,15 @@ function flipCoin() {
         return resp.json()
     })
     .then(function (result) {
-        document.getElementById('one-result').innerHTML = result.flip
-        document.getElementById('one-pic').src =`./assets/img/${result.flip}.png`
+        if (result.flip == 'heads') {
+            document.getElementById('one-result').innerHTML = 'Heads!'
+            document.getElementById('one-pic').src =`./assets/img/${result.flip}.png`
+        } else {
+            document.getElementById('one-result').innerHTML = 'Tails!'
+            document.getElementById('one-pic').src =`./assets/img/${result.flip}.png`
+        }
+
+        
     })
 }
 
@@ -68,10 +76,11 @@ function flipCoin() {
 // Flip multiple coins and show coin images in table as well as summary results
 // Enter number and press button to activate coin flip series
 function flipCoins() {
-    numFlips = document.getElementById('number-of-flips').value
+    numFlips = document.getElementById('number-of-flips').value;
+
     fetch('http://localhost:5555/app/flips/coins', {
-        body: JSON({
-            'numFlips': numFlips
+        body: JSON.stringify({
+            'number': numFlips
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -82,10 +91,33 @@ function flipCoins() {
         return resp.json()
     })
     .then(function (result) {
+        console.log(result)
+
         document.getElementById('heads_total').innerHTML = result.summary.heads
         document.getElementById('tails_total').innerHTML = result.summary.tails
 
-        document.getElementById('table-results').setAttribute('class', 'active')
+        // populating table using raw data
+        var rawDataTable = document.getElementById('raw_data')
+        for (var i = 0; i < result.raw.length; i++) {
+            var new_row = document.createElement('tr')
+
+            var new_result = document.createElement('td')
+            new_result.innerHTML = result.raw[i]
+            new_row.appendChild(new_result)
+
+            var row_img_box = document.createElement('td')
+            var row_img = document.createElement('img')
+
+            row_img.setAttribute('src', `assets/img/${result.raw[i]}.png`)
+            // row_img.setAttribute('class', 'smallcoin')
+
+            row_img_box.appendChild(row_img)
+            new_row.appendChild(row_img_box)
+
+            rawDataTable.appendChild(new_row)
+        }
+
+        document.getElementById('table').setAttribute('class', 'active')
     })
 }
 
@@ -93,8 +125,8 @@ function flipCoins() {
 // Guess a flip by clicking either heads or tails button
 function guessFlip(user_guess) {
     fetch('http://localhost:5555/app/flip/call', {
-        body: JSON({
-            'user_guess': user_guess
+        body: JSON.stringify({
+            'guess': user_guess
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -111,6 +143,12 @@ function guessFlip(user_guess) {
         document.getElementById('actual-flip').innerHTML = result.flip
         document.getElementById('actual-flip-pic').setAttribute('src', `assets/img/${result.flip}.png`)
 
-        document.getElementById('win-or-lose').innerHTML = result.result
+        if (result.result == 'win') {
+            document.getElementById('win-or-lose').innerHTML = 'You won! Congrats.'
+        } else {
+            document.getElementById('win-or-lose').innerHTML = 'Wow you got it wrong... try again!'
+        }
+
+        
     })
 }

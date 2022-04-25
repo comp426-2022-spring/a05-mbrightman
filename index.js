@@ -37,7 +37,6 @@ if (args.help || args.h) {
 }
 
 app.use(express.static('./public'))
-app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 const server = app.listen(port, () => {
@@ -90,9 +89,25 @@ app.get('/app/flip/', (req, res, next) => {
     res.status(200).json({ 'flip': flip })
 })
 
-app.get('/app/flip/call/:guess(heads|tails)/', (req, res, next) => {
+app.get('/app/flip/call/heads/', (req, res, next) => {
     var flip = flipACoin(req.body.guess)
     res.status(200).json(flip)
+})
+
+app.get('/app/flip/call/tails/', (req, res, next) => {
+  var flip = flipACoin(req.body.guess)
+  res.status(200).json(flip)
+})
+
+app.post('/app/flips/coins', (req, res, next) => {
+  flips_array = coinFlips(req.body.number)
+  flips_summary = countFlips(flips_array)
+  res.status(200).json({'raw': flips_array, 'summary': flips_summary})
+})
+
+app.post('/app/flip/call/', (req, res, next) => {
+  var flip = flipACoin(req.body.guess)
+  res.status(200).json(flip)
 })
 
 if (do_debug === true) {
