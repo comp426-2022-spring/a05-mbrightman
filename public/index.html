@@ -32,18 +32,78 @@
       <button id="multinav">Flip multiple coins</button>
       <button id="guessnav">Guess the result</button>
     </nav>
-    <div id="home">
-      
+
+    <div id="home" class="active">
+      <p class="home">Click a button to flip the coins.</p>
     </div>    
-    <div id="single" class="hidden">
-      
+
+
+    <div id="one" class="hidden">
+      <button id="flip-one" onclick="flipCoin()">Flip the coin!</button>
+      <p>Your Coin Flip Result: <span id="one-result"></span></p>
+      <img src="assets/img/coin.png" id="one-pic" class="one-coin">
     </div>
-    <div id="multi" class="hidden">
-      
+
+
+    <div id="many" class="hidden">
+      <form action="javascript:void(0);" method="post" onsubmit="flipCoins()">
+        <label for="number-of-flips">How many coins are we flipping?</label>
+        <input type="number" name="number-of-flips" id="number-of-flips">
+        <br>
+        <input type="submit" value="Flip Some Coins">
+      </form>
+
+      <div id="table" class="hidden">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Heads/Tails</th>
+              <th scope="col">Number of Each</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Heads</td>
+              <td><span id="heads_total"></span></td>
+            </tr>
+            <tr>
+              <td>Tails</td>
+              <td><span id="tails_total"></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Flip Result</th>
+              <th scope="col">Image Result</th>
+            </tr>
+          </thead>
+          <tbody id="raw_data"></tbody>
+        </table>
+      </div>
+
     </div>
+
+
     <div id="guess" class="hidden">
-      
+      <button id="flip-guess-heads" onclick="guessFlip('heads')">Guess heads!</button>
+      <button id="flip-guess-tails" onclick="guessFlip('tails')">Guess tails!</button>
+
+      <h2>What you picked (hope you were right!):</h2>
+      <p><span id="persons-call"></span></p>
+      <img src="assets/img/coin.png" id="persons-call-pic">
+
+      <h2>What the flip was:</h2>
+      <p><span id="actual-flip"></span></p>
+      <img src="assets/img/coin.png" id="actual-flip-pic">
+
+      <h2>Did You Win or Lose?</h2>
+      <p><span id="win-or-lose"></span></p>
     </div>
+
 	<script src="main.js"></script>
   </body>
 </html>
